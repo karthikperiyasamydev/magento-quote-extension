@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Customer:etc/sections.xsd">
+    <action name="quote/quote/add">
+        <section name="quote"/>
+    </action>
+    <action name="quote/quote/updateItemOptions">
+        <section name="quote"/>
+    </action>
+    <action name="quote/quote/delete">
+        <section name="quote"/>
+    </action>
+    <action name="quote/quote/updateQuote">
+        <section name="quote"/>
+    </action>
+</config>

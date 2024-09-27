@@ -1,0 +1,12 @@
+<?php
+/** @var $block QuoteMaster\QuoteStorm\Block\Quote\Item\Renderer\Actions\Remove */
+/** @var $escaper Magento\Framework\Escaper */
+?>
+<a href="#"
+   title="<?= $escaper->escapeHtml(__('Remove item')) ?>"
+   class="action action-delete"
+   data-post='<?= /* @noEscape */ $block->getDeleteQuote() ?>'>
+    <span>
+        <?= $escaper->escapeHtml(__('Remove item')) ?>
+    </span>
+</a>

@@ -1,0 +1,25 @@
+<div class="step-title title" data-role="title" data-bind="i18n: 'Enter your details'"></div>
+<!-- ko foreach: getRegion('customer-email') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+
+<form class="form quote-fields" id="quote-fields" data-hasrequired="* Required Fields">
+    <fieldset class="fieldset" id="guest-fields" data-bind="visible: showGuestField">
+        <!-- ko foreach: getRegion('guest-fieldsets') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+    </fieldset>
+    <fieldset class="fieldset">
+        <!-- ko foreach: getRegion('remarks-fieldsets') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+    </fieldset>
+    <fieldset class="fieldset" data-bind="visible: !isCustomerLoggedIn() ">
+        <div id="guest-form">
+            <input type="checkbox" id="checkbox-request-account" data-bind="checked: requestDetails"/>
+            <label for="checkbox-request-account">
+                <span data-bind="i18n: 'Enter Shipping Details'"></span>
+            </label>
+        </div>
+    </fieldset>
+</form>

@@ -1,0 +1,15 @@
+<?php
+/** @var $block QuoteMaster\QuoteStorm\Block\Product\ProductList\AddToQuote */
+/** @var $escaper Magento\Framework\Escaper */
+?>
+
+<form id="toquote-form" method="post" action="<?= $escaper->escapeHtml($block->getAddToQuoteUrl()) ?>">
+    <input type="hidden" name="product" value="<?= $block->getProduct()->getId() ?>">
+    <?php echo $block->getBlockHtml('formkey')?>
+    <button id="product-addtoquote-button" type="submit" title="<?php echo __('Add to Quote') ?>" class="action toquote">
+        <span><?php echo __('Add to Quote') ?></span>
+    </button>
+</form>
+
+
+

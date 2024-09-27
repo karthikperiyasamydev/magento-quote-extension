@@ -1,0 +1,20 @@
+
+<li id="billing" data-bind="fadeVisible: allowToShowForm">
+    <div class="checkout-billing-address">
+        <div class="step-title" translate="'Billing Address'" data-role="title"></div>
+        <div class="billing-address-same-as-shipping-block field choice" data-bind="visible: canUseShippingAddress()">
+            <input type="checkbox" name="billing-address-same-as-shipping"
+                   data-bind="checked: isAddressSameAsShipping, click: useShippingAddress, attr: {id: 'billing-address-same-as-shipping-' + getCode($parent)}"/>
+            <label data-bind="attr: {for: 'billing-address-same-as-shipping-' + getCode($parent)}"><span
+                data-bind="i18n: 'My billing and shipping address are the same'"></span></label>
+        </div>
+        <fieldset class="fieldset" data-bind="visible: isAddressDetailsVisible()">
+            <!-- ko foreach: getRegion('billing-address-list') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+            <div data-bind="fadeVisible: isAddressFormVisible">
+                <!-- ko template: 'Magento_Checkout/billing-address/form' --><!-- /ko -->
+            </div>
+        </fieldset>
+    </div>
+</li>

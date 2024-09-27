@@ -1,0 +1,86 @@
+<?php
+
+/** @var Magento\Checkout\Block\Cart\Item\Renderer $block */
+/** @var $escaper Magento\Framework\Escaper */
+
+$item = $block->getItem();
+$product = $item->getProduct();
+
+?>
+<tbody class="cart item">
+    <tr class="item-info">
+        <td data-th="<?php echo $escaper->escapeHtml(__('Item')); ?>" class="col item">
+            <?php if ($block->hasProductUrl()) : ?>
+            <a href="<?php echo $escaper->escapeHtml($block->getProductUrl()) ?>"
+               title="<?php echo $escaper->escapeHtml($block->getProductName()) ?>"
+               tabindex="-1"
+               class="product-item-photo">
+                <?php else : ?>
+                <span class="product-item-photo">
+            <?php endif; ?>
+            <?php echo $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml(); ?>
+            <?php if ($block->hasProductUrl()) : ?>
+            </a>
+        <?php else : ?>
+            </span>
+        <?php endif; ?>
+            <div class="product-item-details">
+                <strong class="product-item-name">
+                    <?php if ($block->hasProductUrl()) : ?>
+                        <a href="<?php echo $escaper->escapeHtml($block->getProductUrl()) ?>"
+                        ><?php echo $escaper->escapeHtml($block->getProductName()) ?></a>
+                    <?php else : ?>
+                        <?php echo $escaper->escapeHtml($block->getProductName()) ?>
+                    <?php endif; ?>
+                </strong>
+                <?php if ($_options = $block->getOptionList()): ?>
+                    <dl class="item-options">
+                        <?php foreach ($_options as $_option): ?>
+                            <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                            <dt><?= $escaper->escapeHtml($_option['label']) ?></dt>
+                            <dd>
+                                <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                    <?= $escaper->escapeHtml($_formatedOptionValue['full_view'], ['span', 'a']) ?>
+                                <?php else: ?>
+                                    <?= $escaper->escapeHtml($_formatedOptionValue['value'], ['span', 'a']) ?>
+                                <?php endif; ?>
+                            </dd>
+                        <?php endforeach; ?>
+                    </dl>
+                <?php endif; ?>
+            </div>
+        </td>
+        <td class="col price" data-th="<?= $escaper->escapeHtml(__('Price')) ?>">
+            <?= $block->getUnitPriceHtml($item) ?>
+        </td>
+        <td class="col qty" data-th="<?= $escaper->escapeHtml(__('Qty')) ?>">
+            <div class="field qty">
+                <div class="control qty">
+                    <label for="cart-<?= $escaper->escapeHtmlAttr($item->getId()) ?>-qty">
+                        <span class="label"><?= $escaper->escapeHtml(__('Qty')) ?></span>
+                        <input id="cart-<?= $escaper->escapeHtmlAttr($item->getId()) ?>-qty"
+                               name="cart[<?= $escaper->escapeHtmlAttr($item->getId()) ?>][qty]"
+                               data-cart-item-id="<?= $escaper->escapeHtmlAttr($item->getSku()) ?>"
+                               value="<?= $escaper->escapeHtmlAttr($block->getQty()) ?>"
+                               type="number"
+                               min="0"
+                               size="4"
+                               step="any"
+                               title="<?= $escaper->escapeHtmlAttr(__('Qty')) ?>"
+                               class="input-text qty"
+                               data-validate="{required:true,'validate-greater-than-zero':true}"
+                               data-item-qty="<?= $escaper->escapeHtmlAttr($block->getQty()) ?>"
+                               data-role="cart-item-qty"/>
+                    </label>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr class="item-actions">
+        <td colspan="4">
+            <div class="actions-toolbar">
+                <?= /* @noEscape */ $block->getActions($item) ?>
+            </div>
+        </td>
+    </tr>
+</tbody>

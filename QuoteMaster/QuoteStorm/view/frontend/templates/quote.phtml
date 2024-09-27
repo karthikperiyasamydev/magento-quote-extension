@@ -1,0 +1,9 @@
+<?php
+/** @var $block QuoteMaster\QuoteStorm\Block\Quote */
+
+if ($block->getItemsCount()) {
+    echo $block->getChildHtml('items');
+} else {
+    echo $block->getChildHtml('no-items');
+}
+

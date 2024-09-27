@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="QuoteMaster_QuoteStorm::css/style.css"/>
+    </head>
+    <body>
+        <referenceContainer name="header-wrapper">
+            <block class="QuoteMaster\QuoteStorm\Block\Quote\Sidebar" name="miniquote" as="miniquote" before="minicart" template="QuoteMaster_QuoteStorm::quote/miniquote.phtml">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="types" xsi:type="array"/>
+                        <item name="components" xsi:type="array">
+                            <item name="miniquote" xsi:type="array">
+                                <item name="component" xsi:type="string">QuoteMaster_QuoteStorm/js/miniquote</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">QuoteMaster_QuoteStorm/miniquote/content</item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,354 @@
+<?xml version="1.0"?>
+
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="quotemaster_quote_item_renderers"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="QuoteMaster\QuoteStorm\Block\Quote\Grid" name="quotemaster.quote" template="QuoteMaster_QuoteStorm::quote.phtml" cacheable="false">
+                <container name="quotemaster.quote.items" as="items">
+                    <container name="quotemaster.quote.container" htmlTag="div" htmlClass="cart-container" before="-">
+                        <block class="QuoteMaster\QuoteStorm\Block\Quote\Grid" name="quotemaster.quote.form" as="quote-items" template="QuoteMaster_QuoteStorm::quote/form.phtml">
+                            <arguments>
+                                <argument name="view_model" xsi:type="object">Magento\Checkout\ViewModel\Cart</argument>
+                            </arguments>
+                            <block class="Magento\Framework\View\Element\RendererList" name="quotemaster.quote.item.renderers" as="renderer.list"/>
+                            <block class="Magento\Framework\View\Element\Text\ListText" name="quotemaster.quote.order.actions"/>
+                        </block>
+                        <container name="quotemaster.request.quote.form" htmlTag="div" htmlClass="cart-summary" after="-">
+                            <block class="QuoteMaster\QuoteStorm\Block\Quote\RequestQuote" name="quote.checkout" template="QuoteMaster_QuoteStorm::quote/quote-form.phtml" cacheable="false">
+                                <arguments>
+                                    <argument name="jsLayout" xsi:type="array">
+                                        <item name="types" xsi:type="array">
+                                            <item name="form.input" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                    <item name="deps" xsi:type="array">
+                                                        <item name="0" xsi:type="string">checkoutProvider</item>
+                                                    </item>
+                                                    <item name="template" xsi:type="string">ui/form/field</item>
+                                                    <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <item name="components" xsi:type="array">
+                                            <item name="checkout" xsi:type="array">
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">QuoteMaster_QuoteStorm/onepage</item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="errors" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Magento_Ui/js/view/messages</item>
+                                                        <item name="displayArea" xsi:type="string">messages</item>
+                                                    </item>
+                                                    <item name="authentication" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Magento_Checkout/js/view/authentication</item>
+                                                        <item name="displayArea" xsi:type="string">authentication</item>
+                                                        <item name="children" xsi:type="array">
+                                                            <!--Additional authentication fields-->
+                                                            <item name="errors" xsi:type="array">
+                                                                <item name="sortOrder" xsi:type="string">0</item>
+                                                                <item name="component" xsi:type="string">Magento_Checkout/js/view/authentication-messages</item>
+                                                                <item name="displayArea" xsi:type="string">messages</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="steps" xsi:type="array">
+                                                        <item name="component" xsi:type="string">uiComponent</item>
+                                                        <item name="displayArea" xsi:type="string">steps</item>
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="shipping-step" xsi:type="array">
+                                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                                <item name="sortOrder" xsi:type="string">1</item>
+                                                                <item name="children" xsi:type="array">
+                                                                    <item name="step-config" xsi:type="array">
+                                                                        <item name="component" xsi:type="string">uiComponent</item>
+                                                                        <item name="children" xsi:type="array">
+                                                                            <item name="shipping-rates-validation" xsi:type="array">
+                                                                                <item name="children" xsi:type="array">
+                                                                                    <item name="freeshipping-rates-validation" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/freeshipping</item>
+                                                                                    </item>
+                                                                                    <item name="flatrate-rates-validation" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/flatrate</item>
+                                                                                    </item>
+                                                                                    <item name="tablerate-rates-validation" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/tablerate</item>
+                                                                                    </item>
+                                                                                    <item name="dhl-rates-validation" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">Magento_Dhl/js/view/shipping-rates-validation</item>
+                                                                                    </item>
+                                                                                    <item name="fedex-rates-validation" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">Magento_Fedex/js/view/shipping-rates-validation</item>
+                                                                                    </item>
+                                                                                    <item name="ups-rates-validation" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">Magento_Ups/js/view/shipping-rates-validation</item>
+                                                                                    </item>
+                                                                                    <item name="usps-rates-validation" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">Magento_Usps/js/view/shipping-rates-validation</item>
+                                                                                    </item>
+                                                                                </item>
+                                                                            </item>
+                                                                        </item>
+                                                                    </item>
+                                                                    <item name="quote-fields" xsi:type="array">
+                                                                        <item name="component" xsi:type="string">QuoteMaster_QuoteStorm/js/quote/view/quote-fields</item>
+                                                                        <item name="sortOrder" xsi:type="string">10</item>
+                                                                        <item name="displayArea" xsi:type="string">quote-fields</item>
+                                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                        <item name="children" xsi:type="array">
+                                                                            <item name="customer-email" xsi:type="array">
+                                                                                <item name="component" xsi:type="string">QuoteMaster_QuoteStorm/js/quote/view/form/element/email</item>
+                                                                                <item name="template" xsi:type="string">QuoteMaster_QuoteStorm/quote/form/element/email</item>
+                                                                                <item name="displayArea" xsi:type="string">customer-email</item>
+                                                                                <item name="tooltip" xsi:type="array">
+                                                                                    <item name="description" xsi:type="string" translate="true">We'll send your quote confirmation here.</item>
+                                                                                </item>
+                                                                                <item name="children" xsi:type="array">
+                                                                                    <item name="before-login-form" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">uiComponent</item>
+                                                                                        <item name="displayArea" xsi:type="string">before-login-form</item>
+                                                                                        <item name="children" xsi:type="array">
+                                                                                            <!-- before login form fields -->
+                                                                                        </item>
+                                                                                    </item>
+                                                                                    <item name="additional-login-form-fields" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">uiComponent</item>
+                                                                                        <item name="displayArea" xsi:type="string">additional-login-form-fields</item>
+                                                                                        <item name="children" xsi:type="array">
+                                                                                            <!-- additional login form fields -->
+                                                                                        </item>
+                                                                                    </item>
+                                                                                </item>
+                                                                            </item>
+                                                                            <item name="guest-fieldset" xsi:type="array">
+                                                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                                                <item name="config" xsi:type="array">
+                                                                                    <item name="deps" xsi:type="array">
+                                                                                        <item name="0" xsi:type="string">checkoutProvider</item>
+                                                                                    </item>
+                                                                                </item>
+                                                                                <item name="displayArea" xsi:type="string">guest-fieldsets</item>
+                                                                                <item name="children" xsi:type="array">
+                                                                                    <item name="firstname" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                                                        <item name="sortOrder" xsi:type="string">1</item>
+                                                                                        <item name="dataScope" xsi:type="string">quoteGuestFieldData.first_name</item>
+                                                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                                                        <item name="guestField" xsi:type="string">true</item>
+                                                                                        <item name="label" xsi:type="string" translate="true">First Name</item>
+                                                                                        <item name="config" xsi:type="array">
+                                                                                            <item name="customScope" xsi:type="string">quoteGuestFieldData</item>
+                                                                                            <item name="template" xsi:type="string">ui/form/field</item>
+                                                                                            <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                                                                        </item>
+                                                                                        <item name="validation" xsi:type="array">
+                                                                                            <item name="required-entry" xsi:type="string">true</item>
+                                                                                            <item name="max_text_length" xsi:type="string">255</item>
+                                                                                            <item name="min_text_length" xsi:type="string">1</item>
+                                                                                        </item>
+                                                                                    </item>
+                                                                                    <item name="lastname" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                                                        <item name="sortOrder" xsi:type="string">2</item>
+                                                                                        <item name="dataScope" xsi:type="string">quoteGuestFieldData.last_name</item>
+                                                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                                                        <item name="guestField" xsi:type="string">true</item>
+                                                                                        <item name="label" xsi:type="string" translate="true">Last Name</item>
+                                                                                        <item name="config" xsi:type="array">
+                                                                                            <item name="customScope" xsi:type="string">quoteGuestFieldData</item>
+                                                                                            <item name="template" xsi:type="string">ui/form/field</item>
+                                                                                            <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                                                                        </item>
+                                                                                        <item name="validation" xsi:type="array">
+                                                                                            <item name="required-entry" xsi:type="string">true</item>
+                                                                                            <item name="max_text_length" xsi:type="string">255</item>
+                                                                                            <item name="min_text_length" xsi:type="string">1</item>
+                                                                                        </item>
+                                                                                    </item>
+                                                                                </item>
+                                                                            </item>
+                                                                            <item name="remarks-fieldset" xsi:type="array">
+                                                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                                                <item name="config" xsi:type="array">
+                                                                                    <item name="deps" xsi:type="array">
+                                                                                        <item name="0" xsi:type="string">checkoutProvider</item>
+                                                                                    </item>
+                                                                                </item>
+                                                                                <item name="displayArea" xsi:type="string">remarks-fieldsets</item>
+                                                                                <item name="children" xsi:type="array">
+                                                                                    <item name="remarks" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/textarea</item>
+                                                                                        <item name="sortOrder" xsi:type="string">10</item>
+                                                                                        <item name="dataScope" xsi:type="string">quoteFieldData.customer_note</item>
+                                                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                                        <item name="visible" xsi:type="boolean">true</item>
+                                                                                        <item name="guestField" xsi:type="string">false</item>
+                                                                                        <item name="label" xsi:type="string" translate="true">Remarks</item>
+                                                                                        <item name="config" xsi:type="array">
+                                                                                            <item name="customScope" xsi:type="string">quoteFieldData</item>
+                                                                                            <item name="template" xsi:type="string">ui/form/field</item>
+                                                                                            <item name="elementTmpl" xsi:type="string">ui/form/element/textarea</item>
+                                                                                        </item>
+                                                                                    </item>
+                                                                                </item>
+                                                                            </item>
+                                                                        </item>
+                                                                    </item>
+                                                                    <item name="shippingAddress" xsi:type="array">
+                                                                        <item name="config" xsi:type="array">
+                                                                            <item name="template" xsi:type="string">QuoteMaster_QuoteStorm/shipping</item>
+                                                                            <item name="deps" xsi:type="array">
+                                                                                <item name="0" xsi:type="string">checkout.steps.shipping-step.step-config</item>
+                                                                                <item name="1" xsi:type="string">checkoutProvider</item>
+                                                                            </item>
+                                                                            <item name="popUpForm" xsi:type="array">
+                                                                                <item name="element" xsi:type="string">#opc-new-shipping-address</item>
+                                                                                <item name="options" xsi:type="array">
+                                                                                    <item name="type" xsi:type="string">popup</item>
+                                                                                    <item name="modalClass" xsi:type="string">new-shipping-address-modal</item>
+                                                                                    <item name="responsive" xsi:type="boolean">true</item>
+                                                                                    <item name="innerScroll" xsi:type="boolean">true</item>
+                                                                                    <item name="title" xsi:type="string" translate="true">Shipping Address</item>
+                                                                                    <item name="trigger" xsi:type="string">opc-new-shipping-address</item>
+                                                                                    <item name="buttons" xsi:type="array">
+                                                                                        <item name="save" xsi:type="array">
+                                                                                            <item name="text" xsi:type="string" translate="true">Save Address</item>
+                                                                                            <item name="class" xsi:type="string">action primary action-save-address</item>
+                                                                                        </item>
+                                                                                        <item name="cancel" xsi:type="array">
+                                                                                            <item name="text" xsi:type="string" translate="true">Cancel</item>
+                                                                                            <item name="class" xsi:type="string">action secondary action-hide-popup</item>
+                                                                                        </item>
+                                                                                    </item>
+                                                                                </item>
+                                                                            </item>
+                                                                        </item>
+                                                                        <item name="component" xsi:type="string">QuoteMaster_QuoteStorm/js/quote/view/shipping</item>
+                                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                        <item name="sortOrder" xsi:type="string">20</item>
+                                                                        <item name="children" xsi:type="array">
+                                                                            <item name="before-form" xsi:type="array">
+                                                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                                                <item name="displayArea" xsi:type="string">before-form</item>
+                                                                                <item name="children" xsi:type="array">
+                                                                                    <!-- before form fields -->
+                                                                                </item>
+                                                                            </item>
+                                                                            <item name="before-fields" xsi:type="array">
+                                                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                                                <item name="displayArea" xsi:type="string">before-fields</item>
+                                                                                <item name="children" xsi:type="array">
+                                                                                    <!-- before fields -->
+                                                                                </item>
+                                                                            </item>
+                                                                            <item name="address-list" xsi:type="array">
+                                                                                <item name="component" xsi:type="string">Magento_Checkout/js/view/shipping-address/list</item>
+                                                                                <item name="displayArea" xsi:type="string">address-list</item>
+                                                                            </item>
+                                                                            <item name="address-list-additional-addresses" xsi:type="array">
+                                                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                                                <item name="displayArea" xsi:type="string">address-list-additional-addresses</item>
+                                                                                <item name="children" xsi:type="array">
+                                                                                    <!-- address-list-additional-addresses -->
+                                                                                </item>
+                                                                            </item>
+                                                                            <item name="before-shipping-method-form" xsi:type="array">
+                                                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                                                <item name="displayArea" xsi:type="string">before-shipping-method-form</item>
+                                                                                <item name="children" xsi:type="array">
+                                                                                    <!-- address-list-additional-addresses -->
+                                                                                </item>
+                                                                            </item>
+                                                                            <item name="shipping-address-fieldset" xsi:type="array">
+                                                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                                                <item name="config" xsi:type="array">
+                                                                                    <item name="deps" xsi:type="array">
+                                                                                        <item name="0" xsi:type="string">checkoutProvider</item>
+                                                                                    </item>
+                                                                                </item>
+                                                                                <item name="displayArea" xsi:type="string">additional-fieldsets</item>
+                                                                                <item name="children" xsi:type="array">
+                                                                                    <!-- The following items override configuration of corresponding address attributes -->
+                                                                                    <item name="region" xsi:type="array">
+                                                                                        <!-- Make region attribute invisible on frontend. Corresponding input element is created by region_id field -->
+                                                                                        <item name="visible" xsi:type="boolean">false</item>
+                                                                                    </item>
+                                                                                    <item name="region_id" xsi:type="array">
+                                                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/region</item>
+                                                                                        <item name="config" xsi:type="array">
+                                                                                            <item name="template" xsi:type="string">ui/form/field</item>
+                                                                                            <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                                                                                            <item name="customEntry" xsi:type="string">shippingAddress.region</item>
+                                                                                        </item>
+                                                                                        <item name="validation" xsi:type="array">
+                                                                                            <item name="required-entry" xsi:type="boolean">true</item>
+                                                                                        </item>
+                                                                                        <!-- Value of region_id field is filtered by the value of county_id attribute -->
+                                                                                        <item name="filterBy" xsi:type="array">
+                                                                                            <item name="target" xsi:type="string"><![CDATA[${ $.provider }:${ $.parentScope }.country_id]]></item>
+                                                                                            <item name="field" xsi:type="string">country_id</item>
+                                                                                        </item>
+                                                                                    </item>
+                                                                                    <item name="postcode" xsi:type="array">
+                                                                                        <!-- post-code field has custom UI component -->
+                                                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/post-code</item>
+                                                                                        <item name="validation" xsi:type="array">
+                                                                                            <item name="required-entry" xsi:type="boolean">true</item>
+                                                                                        </item>
+                                                                                    </item>
+                                                                                    <item name="company" xsi:type="array">
+                                                                                        <item name="validation" xsi:type="array">
+                                                                                            <item name="min_text_length" xsi:type="number">0</item>
+                                                                                        </item>
+                                                                                    </item>
+                                                                                    <item name="fax" xsi:type="array">
+                                                                                        <item name="validation" xsi:type="array">
+                                                                                            <item name="min_text_length" xsi:type="number">0</item>
+                                                                                        </item>
+                                                                                    </item>
+                                                                                    <item name="telephone" xsi:type="array">
+                                                                                        <item name="config" xsi:type="array">
+                                                                                            <item name="tooltip" xsi:type="array">
+                                                                                                <item name="description" xsi:type="string" translate="true">For delivery questions.</item>
+                                                                                            </item>
+                                                                                        </item>
+                                                                                    </item>
+                                                                                </item>
+                                                                            </item>
+                                                                            <item name="price" xsi:type="array">
+                                                                                <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/shipping_method/price</item>
+                                                                                <item name="displayArea" xsi:type="string">price</item>
+                                                                            </item>
+                                                                        </item>
+                                                                    </item>
+                                                                    <item name="request-quote" xsi:type="array">
+                                                                        <item name="component" xsi:type="string">QuoteMaster_QuoteStorm/js/quote/view/request-quote</item>
+                                                                        <item name="sortOrder" xsi:type="string">999</item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="checkoutProvider" xsi:type="array">
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                            </item>
+                                        </item>
+                                    </argument>
+                                </arguments>
+                            </block>
+                        </container>
+                    </container>
+                </container>
+                <container name="quotemaster.quote.noitems" as="no-items">
+                    <block class="QuoteMaster\QuoteStorm\Block\Quote\Grid" name="quotemaster.quote.empty" template="QuoteMaster_QuoteStorm::quote/noItems.phtml"/>
+                </container>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

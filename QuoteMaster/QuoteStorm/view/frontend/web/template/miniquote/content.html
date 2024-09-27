@@ -1,0 +1,65 @@
+
+<div class="block-content">
+
+    <button type="button"
+            id="btn-miniquote-close"
+            class="action close"
+            data-action="close"
+            data-bind="
+                attr: {
+                    title: $t('Close')
+                },
+                click: closeMiniquote()
+            ">
+    </button>
+
+    <!-- ko if: quote().items_quantity -->
+        <div class="items-total">
+            <span class="count"><!-- ko text: quote().items_quantity --><!-- /ko --></span>
+            <!-- ko if: quote().items_quantity == 1 -->
+            <!-- ko text: $t('Item') --><!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: quote().items_quantity > 1 -->
+            <!-- ko text: $t('Items') --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+    <!-- /ko -->
+
+    <!-- ko ifnot: quote().items_quantity -->
+    <strong class="subtitle empty">
+        <!-- ko text: $t('You have no items in your quote.') --><!-- /ko -->
+    </strong>
+    <!-- /ko -->
+
+    <!-- ko if: quote().items_quantity -->
+    <div class="miniquote-items-container">
+        <ul class="miniquote-items" data-bind="foreach: { data: quote().items, as: 'item' }">
+            <li class="product-item">
+                <div class="quote-product">
+                    <div class="product-item-photo">
+                        <img class="photo image" loading="lazy" data-bind="attr: {src: item.product_image.src, alt: item.product_image.alt},
+                         style: {width: item.product_image.width + 'px', height: item.product_image.height + 'px'}" />
+                    </div>
+                    <div class="product-details">
+                        <div class="product-name" data-bind="text: product_name"></div>
+                        <div class="product-quantity">
+                            <span class="label">Qty: </span>
+                            <span class="value" data-bind="text: qty"></span>
+                        </div>
+                        <div class="product-price" data-bind="html: product_price"></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if: quote().items_quantity -->
+    <div class="quote-actions">
+        <a class="action viewquote" data-bind="attr: {href: quoteUrl}">
+            <span><!-- ko text: $t('View and Edit Quote Request') --><!-- /ko --></span>
+        </a>
+    </div>
+    <!-- /ko -->
+
+</div>

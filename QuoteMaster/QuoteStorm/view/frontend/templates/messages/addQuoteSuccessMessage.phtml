@@ -1,0 +1,11 @@
+<?php
+
+/** @var Magento\Framework\View\Element\Template $block */
+/** @var $escaper Magento\Framework\Escaper */
+?>
+
+<?= $escaper->escapeHtml(__(
+    'You added %1 to your <a href="%2">quote</a>.',
+    $block->getData('product_name'),
+    $block->getData('quote_url')
+), ['a']); ?>

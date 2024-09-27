@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="QuoteMaster\QuoteStorm\Model\Session\Storage" type="Magento\Framework\Session\Storage">
+        <arguments>
+            <argument name="namespace" xsi:type="string">quotes</argument>
+        </arguments>
+    </virtualType>
+    <type name="QuoteMaster\QuoteStorm\Model\Session">
+        <arguments>
+            <argument name="storage" xsi:type="object">QuoteMaster\QuoteStorm\Model\Session\Storage</argument>
+        </arguments>
+    </type>
+    <virtualType name="QuoteMaster\QuoteStorm\Model\TaxConfigProvider" type="Magento\Tax\Model\TaxConfigProvider">
+        <arguments>
+            <argument name="checkoutSession" xsi:type="object">QuoteMaster\QuoteStorm\Model\Session</argument>
+        </arguments>
+    </virtualType>
+    <type name="QuoteMaster\QuoteStorm\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="quotestorm_config_provider" xsi:type="object">QuoteMaster\QuoteStorm\Model\Quote\ConfigProvider</item>
+                <item name="tax_config_provider" xsi:type="object">QuoteMaster\QuoteStorm\Model\TaxConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Webapi\ParamOverriderCartId">
+        <plugin name="override_cart_id_for_shipping_methods" type="QuoteMaster\QuoteStorm\Plugin\Quote\ParamOverriderCartId"/>
+    </type>
+    <type name="Magento\Quote\Model\ResourceModel\Quote">
+        <plugin name="load_customer_quote_with_current_quote" type="QuoteMaster\QuoteStorm\Plugin\Quote\LoadCustomerQuote"/>
+    </type>
+    <virtualType name="QuoteMaster\QuoteStorm\Block\Quote\Grid" type="Magento\Checkout\Block\Cart\Grid">
+        <arguments>
+            <argument name="checkoutSession" xsi:type="object">QuoteMaster\QuoteStorm\Model\Session</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="QuoteMaster\QuoteStorm\Block\Quote" type="Magento\Checkout\Block\Cart">
+        <arguments>
+            <argument name="checkoutSession" xsi:type="object">QuoteMaster\QuoteStorm\Model\Session</argument>
+        </arguments>
+    </virtualType>
+</config>

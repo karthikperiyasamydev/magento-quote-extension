@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.addtocart.bundle">
+            <block class="QuoteMaster\QuoteStorm\Block\Product\View\View" name="product.info.addtoquote" as="addtoquote" template="QuoteMaster_QuoteStorm::product/view/addtoquote.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

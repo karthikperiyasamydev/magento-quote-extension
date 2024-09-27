@@ -1,0 +1,37 @@
+<?php
+
+/** @var QuoteMaster\QuoteStorm\Block\Quote\Sidebar $block */
+/** @var Magento\Framework\Escaper $escaper */
+?>
+    <div data-block="miniquote" class="miniquote-wrapper">
+        <a class="action showquote" href="#" data-bind="scope: 'miniquote'">
+            <!-- ko if: quote().items_quantity -->
+                <span class="count-notify"><!-- ko text: quote().items_quantity --><!-- /ko --></span>
+            <!-- /ko -->
+        </a>
+        <div class="block-miniquote"
+             data-role="dropdownDialog"
+             data-mage-init='{"dropdownDialog":{
+            "appendTo":"[data-block=miniquote]",
+            "triggerTarget":".showquote",
+            "timeout": "2000",
+            "closeOnMouseLeave": false,
+            "closeOnEscape": true,
+            "triggerClass":"active",
+            "parentClass":"active",
+            "buttons":[]}}'>
+            <div id="miniquote-content-wrapper" data-bind="scope: 'miniquote'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+        </div>
+        <script>
+            window.quote = <?= $block->getSerializedConfig(); ?>;
+        </script>
+        <script type="text/x-magento-init">
+            {
+                "[data-block='miniquote']": {
+                    "Magento_Ui/js/core/app": <?php echo $block->getJsLayout(); ?>
+                }
+            }
+        </script>
+    </div>

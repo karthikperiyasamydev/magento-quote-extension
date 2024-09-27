@@ -1,0 +1,15 @@
+<?php
+/**  @var $block QuoteMaster\QuoteStorm\Block\Quote */
+/** @var $escaper Magento\Framework\Escaper */
+?>
+<div class="quote-empty">
+    <p><?= $escaper->escapeHtml(__('You have no items in your quote.')) ?></p>
+    <p><?= $escaper->escapeHtml(
+            __(
+                'Click <a href="%1">here</a> to continue shopping.',
+                $escaper->escapeUrl($block->getUrl())
+            ),
+            ['a']
+        ) ?>
+    </p>
+</div>
